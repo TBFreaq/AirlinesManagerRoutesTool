@@ -1,8 +1,12 @@
-﻿Public Class AccDBHandler
+﻿Imports System.Data.OleDb
+
+Public Class AccDBHandler
 
     Dim Source As String = ""
     Dim FileName As String = ""
     Dim CompletePath As String = ""
+    Dim ConnectionOpen As Boolean = False
+    Public DataSetCollection As New DataSet
 
     Public Sub SetSource(SourceStr As String, FileNameStr As String)
         Source = SourceStr
@@ -74,9 +78,36 @@
 
     End Sub
 
-    Public Sub ReadDatabase()
+    Public Sub ReadDatabase(Table As String, ReadAll As Boolean, Optional SearchString As String = "")
+        Dim Query As String
+        Dim MDBConnectionString As String = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" & CompletePath
+        Dim DatabaseConnection As New OleDbConnection
+
+        If ConnectionOpen = False Then
+            DatabaseConnection.ConnectionString = MDBConnectionString
+            Try
+                DatabaseConnection.Open()
+            Catch ex As Exception
+                MsgBox(ex)
+                Exit Sub
+            End Try
+        End If
+
+        Select Case ReadAll
+            Case True
+
+                Query = "SELECT * FROM " & Table
+
+                Dim DatabaseCommand As New OleDbCommand(Query, DatabaseConnection)
+                Dim DatabaseAdapter As New OleDbDataAdapter(DatabaseCommand)
+
+                DatabaseAdapter.Fill(DataSetCollection)
+
+            Case False
 
 
+
+        End Select
 
     End Sub
 
