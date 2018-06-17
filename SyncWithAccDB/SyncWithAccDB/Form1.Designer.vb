@@ -22,7 +22,6 @@ Partial Class Form1
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.New_BTN_CreateNew = New System.Windows.Forms.Button()
         Me.Label8 = New System.Windows.Forms.Label()
@@ -42,6 +41,7 @@ Partial Class Form1
         Me.Label1 = New System.Windows.Forms.Label()
         Me.New_TXTBX_RouteName = New System.Windows.Forms.TextBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.Edit_BTN_DeleteRoute = New System.Windows.Forms.Button()
         Me.BTNEditEntry = New System.Windows.Forms.Button()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.Label10 = New System.Windows.Forms.Label()
@@ -68,7 +68,17 @@ Partial Class Form1
         Me.Label19 = New System.Windows.Forms.Label()
         Me.Label18 = New System.Windows.Forms.Label()
         Me.Label17 = New System.Windows.Forms.Label()
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.LVRoutes = New System.Windows.Forms.ListView()
+        Me.Route = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.Distance = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.DemandEco = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.DemandBus = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.DemandFirst = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.OfferEco = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.OfferBus = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.OfferFirst = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.DemandOverall = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.OfferOverall = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.GroupBox1.SuspendLayout()
         CType(Me.New_NUD_OfferFirst, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.New_NUD_OfferBus, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -88,14 +98,6 @@ Partial Class Form1
         Me.GroupBox3.SuspendLayout()
         CType(Me.Seats_NUD_MaxSeats, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
-        '
-        'DataGridView1
-        '
-        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Location = New System.Drawing.Point(260, 12)
-        Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.Size = New System.Drawing.Size(589, 660)
-        Me.DataGridView1.TabIndex = 2
         '
         'GroupBox1
         '
@@ -277,6 +279,7 @@ Partial Class Form1
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.Edit_BTN_DeleteRoute)
         Me.GroupBox2.Controls.Add(Me.BTNEditEntry)
         Me.GroupBox2.Controls.Add(Me.Label9)
         Me.GroupBox2.Controls.Add(Me.Label10)
@@ -300,6 +303,15 @@ Partial Class Form1
         Me.GroupBox2.TabIndex = 18
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Edit Route"
+        '
+        'Edit_BTN_DeleteRoute
+        '
+        Me.Edit_BTN_DeleteRoute.Location = New System.Drawing.Point(6, 231)
+        Me.Edit_BTN_DeleteRoute.Name = "Edit_BTN_DeleteRoute"
+        Me.Edit_BTN_DeleteRoute.Size = New System.Drawing.Size(109, 23)
+        Me.Edit_BTN_DeleteRoute.TabIndex = 18
+        Me.Edit_BTN_DeleteRoute.Text = "Delete Entry"
+        Me.Edit_BTN_DeleteRoute.UseVisualStyleBackColor = True
         '
         'BTNEditEntry
         '
@@ -474,10 +486,12 @@ Partial Class Form1
         '
         Me.Seats_NUD_MaxSeats.Location = New System.Drawing.Point(106, 19)
         Me.Seats_NUD_MaxSeats.Maximum = New Decimal(New Integer() {1569325055, 23283064, 0, 0})
+        Me.Seats_NUD_MaxSeats.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.Seats_NUD_MaxSeats.Name = "Seats_NUD_MaxSeats"
         Me.Seats_NUD_MaxSeats.Size = New System.Drawing.Size(127, 20)
         Me.Seats_NUD_MaxSeats.TabIndex = 18
         Me.Seats_NUD_MaxSeats.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.Seats_NUD_MaxSeats.Value = New Decimal(New Integer() {1, 0, 0, 0})
         '
         'Label20
         '
@@ -542,18 +556,86 @@ Partial Class Form1
         Me.Label17.TabIndex = 16
         Me.Label17.Text = "Economy"
         '
+        'LVRoutes
+        '
+        Me.LVRoutes.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.LVRoutes.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.Route, Me.Distance, Me.DemandEco, Me.DemandBus, Me.DemandFirst, Me.OfferEco, Me.OfferBus, Me.OfferFirst, Me.DemandOverall, Me.OfferOverall})
+        Me.LVRoutes.FullRowSelect = True
+        Me.LVRoutes.GridLines = True
+        Me.LVRoutes.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
+        Me.LVRoutes.Location = New System.Drawing.Point(260, 12)
+        Me.LVRoutes.MinimumSize = New System.Drawing.Size(605, 660)
+        Me.LVRoutes.MultiSelect = False
+        Me.LVRoutes.Name = "LVRoutes"
+        Me.LVRoutes.Size = New System.Drawing.Size(749, 660)
+        Me.LVRoutes.Sorting = System.Windows.Forms.SortOrder.Ascending
+        Me.LVRoutes.TabIndex = 20
+        Me.LVRoutes.UseCompatibleStateImageBehavior = False
+        Me.LVRoutes.View = System.Windows.Forms.View.Details
+        '
+        'Route
+        '
+        Me.Route.Text = "Route"
+        Me.Route.Width = 64
+        '
+        'Distance
+        '
+        Me.Distance.Text = "Distance"
+        '
+        'DemandEco
+        '
+        Me.DemandEco.Text = "Demand Economy (%)"
+        Me.DemandEco.Width = 87
+        '
+        'DemandBus
+        '
+        Me.DemandBus.Text = "Demand Business (%)"
+        Me.DemandBus.Width = 83
+        '
+        'DemandFirst
+        '
+        Me.DemandFirst.Text = "Demand First (%)"
+        Me.DemandFirst.Width = 76
+        '
+        'OfferEco
+        '
+        Me.OfferEco.Text = "Offer Economy"
+        Me.OfferEco.Width = 71
+        '
+        'OfferBus
+        '
+        Me.OfferBus.Text = "Offer Business"
+        Me.OfferBus.Width = 66
+        '
+        'OfferFirst
+        '
+        Me.OfferFirst.Text = "Offer First"
+        Me.OfferFirst.Width = 57
+        '
+        'DemandOverall
+        '
+        Me.DemandOverall.Text = "Demand Overall"
+        Me.DemandOverall.Width = 90
+        '
+        'OfferOverall
+        '
+        Me.OfferOverall.Text = "Offer Overall (%)"
+        Me.OfferOverall.Width = 89
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(862, 682)
+        Me.ClientSize = New System.Drawing.Size(1015, 682)
+        Me.Controls.Add(Me.LVRoutes)
         Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
-        Me.Controls.Add(Me.DataGridView1)
+        Me.MinimumSize = New System.Drawing.Size(348, 721)
         Me.Name = "Form1"
         Me.Text = "Form1"
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         CType(Me.New_NUD_OfferFirst, System.ComponentModel.ISupportInitialize).EndInit()
@@ -578,7 +660,6 @@ Partial Class Form1
         Me.ResumeLayout(False)
 
     End Sub
-    Friend WithEvents DataGridView1 As DataGridView
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents New_BTN_CreateNew As Button
     Friend WithEvents Label8 As Label
@@ -624,4 +705,16 @@ Partial Class Form1
     Friend WithEvents Label17 As Label
     Friend WithEvents Seats_NUD_MaxSeats As NumericUpDown
     Friend WithEvents Label20 As Label
+    Friend WithEvents LVRoutes As ListView
+    Friend WithEvents Route As ColumnHeader
+    Friend WithEvents Distance As ColumnHeader
+    Friend WithEvents DemandEco As ColumnHeader
+    Friend WithEvents DemandBus As ColumnHeader
+    Friend WithEvents DemandFirst As ColumnHeader
+    Friend WithEvents OfferEco As ColumnHeader
+    Friend WithEvents OfferBus As ColumnHeader
+    Friend WithEvents OfferFirst As ColumnHeader
+    Friend WithEvents DemandOverall As ColumnHeader
+    Friend WithEvents OfferOverall As ColumnHeader
+    Friend WithEvents Edit_BTN_DeleteRoute As Button
 End Class
