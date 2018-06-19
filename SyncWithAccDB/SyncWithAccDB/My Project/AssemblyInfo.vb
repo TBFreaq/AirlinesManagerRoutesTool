@@ -8,11 +8,11 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("SyncWithAccDB")>
-<Assembly: AssemblyDescription("")>
+<Assembly: AssemblyTitle("Airlines Manager Routes Overview")>
+<Assembly: AssemblyDescription("Handy Tool for Airlines Manager")>
 <Assembly: AssemblyCompany("")>
-<Assembly: AssemblyProduct("SyncWithAccDB")>
-<Assembly: AssemblyCopyright("Copyright ©  2018")>
+<Assembly: AssemblyProduct("AirlinesManagerRoutesOverview")>
+<Assembly: AssemblyCopyright("Copyright © Yannick Haas 2018")>
 <Assembly: AssemblyTrademark("")>
 
 <Assembly: ComVisible(False)>
