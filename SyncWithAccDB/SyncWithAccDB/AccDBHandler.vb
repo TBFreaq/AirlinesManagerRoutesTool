@@ -112,7 +112,7 @@ Public Class AccDBHandler
                 NewListViewItem.SubItems.Add(DataReader.GetValue(6) & " (" & Form1.GetPercentage(DataReader.GetValue(6), CInt(DataReader.GetValue(3))) & ")") 'Offer Bus
                 NewListViewItem.SubItems.Add(DataReader.GetValue(7) & " (" & Form1.GetPercentage(DataReader.GetValue(7), CInt(DataReader.GetValue(4))) & ")") 'Offer First
                 NewListViewItem.SubItems.Add(CInt(DataReader.GetValue(2)) + CInt(DataReader.GetValue(3)) + CInt(DataReader.GetValue(4))) 'Overall Demand
-                NewListViewItem.SubItems.Add(CInt(DataReader.GetValue(5)) + CInt(DataReader.GetValue(6)) + CInt(DataReader.GetValue(7))) 'Overall Offer
+                NewListViewItem.SubItems.Add(CInt(DataReader.GetValue(5)) + CInt(DataReader.GetValue(6)) + CInt(DataReader.GetValue(7)) & " (" & Form1.GetPercentage(CInt(DataReader.GetValue(5)) + CInt(DataReader.GetValue(6)) + CInt(DataReader.GetValue(7)), CInt(DataReader.GetValue(2)) + CInt(DataReader.GetValue(3)) + CInt(DataReader.GetValue(4))) & ")") 'Overall Offer
                 Form1.LVRoutes.Items.Add(NewListViewItem)
             End While
         End If

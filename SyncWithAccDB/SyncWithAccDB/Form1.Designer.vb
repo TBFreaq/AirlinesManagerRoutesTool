@@ -635,7 +635,7 @@ Partial Class Form1
         Me.Controls.Add(Me.GroupBox1)
         Me.MinimumSize = New System.Drawing.Size(348, 721)
         Me.Name = "Form1"
-        Me.Text = "Form1"
+        Me.Text = "Airlines Manager Routes"
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         CType(Me.New_NUD_OfferFirst, System.ComponentModel.ISupportInitialize).EndInit()

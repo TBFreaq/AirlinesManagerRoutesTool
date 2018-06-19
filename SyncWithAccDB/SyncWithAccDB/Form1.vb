@@ -80,7 +80,7 @@ Public Class Form1
             Edit_NUD_OfferBus.Value = Microsoft.VisualBasic.Left(LVRoutes.SelectedItems(0).SubItems(6).Text, InStr(LVRoutes.SelectedItems(0).SubItems(6).Text, "(") - 1) 'Offer Business
             Edit_NUD_OfferFirst.Value = Microsoft.VisualBasic.Left(LVRoutes.SelectedItems(0).SubItems(7).Text, InStr(LVRoutes.SelectedItems(0).SubItems(7).Text, "(") - 1) 'Offer First
         Catch ex As Exception
-
+            'For some reason it works
         End Try
         'Calculate Seats
         CalcSeats()
@@ -88,11 +88,31 @@ Public Class Form1
 
     Private Sub CalcSeats()
         If (LVRoutes.SelectedIndices.Count = 0) Then Exit Sub
+
+        Dim DemandEco As Double
+        Dim DemandBus As Double
+        Dim DemandFirst As Double
+        Dim SeatsEco As Integer
+        Dim SeatsBus As Integer
+        Dim SeatsFirst As Integer
         Dim TotalDemand As Integer
-        TotalDemand = Edit_NUD_DemandBus.Value + Edit_NUD_DemandEco.Value + Edit_NUD_DemandFirst.Value
-        Seats_TXTBX_SeatsEco.Text = Math.Round(Seats_NUD_MaxSeats.Value * (GetPercentage(Edit_NUD_DemandEco.Value, TotalDemand, False) / 100))
-        Seats_TXTBX_SeatsBus.Text = Math.Round(Seats_NUD_MaxSeats.Value * (GetPercentage(Edit_NUD_DemandBus.Value, TotalDemand, False) / 100))
-        Seats_TXTBX_SeatsFirst.Text = Math.Round(Seats_NUD_MaxSeats.Value * (GetPercentage(Edit_NUD_DemandFirst.Value, TotalDemand, False) / 100))
+        Dim TotalSeats As Integer
+        Dim Divisor As Integer
+
+        TotalDemand = Edit_NUD_DemandEco.Value + Edit_NUD_DemandBus.Value + Edit_NUD_DemandFirst.Value
+        TotalSeats = Seats_NUD_MaxSeats.Value
+        DemandEco = Edit_NUD_DemandEco.Value
+        DemandBus = Edit_NUD_DemandBus.Value
+        DemandFirst = Edit_NUD_DemandFirst.Value
+        Divisor = (DemandEco * 1) + (DemandBus * 2) + (DemandFirst * 4)
+        SeatsEco = TotalSeats * DemandEco / Divisor
+        SeatsBus = TotalSeats * DemandBus / Divisor
+        SeatsFirst = TotalSeats * DemandFirst / Divisor
+
+        Seats_TXTBX_SeatsEco.Text = SeatsEco
+        Seats_TXTBX_SeatsBus.Text = SeatsBus
+        Seats_TXTBX_SeatsFirst.Text = SeatsFirst
+
     End Sub
 
     Private Sub Seats_NUD_MaxSeats_ValueChanged(sender As Object, e As EventArgs) Handles Seats_NUD_MaxSeats.ValueChanged
