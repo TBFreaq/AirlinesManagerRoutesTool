@@ -16,7 +16,9 @@ Public Class Form1
 
         'Create New DB, if none found
         If Not (IO.File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) & "\AirlinesManager.mdb")) Then
-            DBHandler.CreateNewDB()
+            Dim TableName As String = "Routes"
+            Dim ColumnNames() As String = {"RouteName", "RouteDistance", "DemandEco", "DemandBus", "DemandFirst", "OfferEco", "OfferBus", "OfferFirst"}
+            DBHandler.CreateNewDB(TableName, ColumnNames)
         End If
 
         'Load Database

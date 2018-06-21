@@ -17,7 +17,7 @@ Public Class AccDBHandler
         CompletePath = Source & FileName
     End Sub
 
-    Public Sub CreateNewDB(Optional Overwrite As Boolean = False)
+    Public Sub CreateNewDB(TableName As String, Columns As String(), Optional Overwrite As Boolean = False)
 
         If CompletePath = "" Then
             MsgBox("No Source set")
@@ -55,16 +55,10 @@ Public Class AccDBHandler
 
         ADOXCatalog.ActiveConnection = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" & CompletePath
 
-        ADOXTable.Name = "Routes"
-        ADOXTable.Columns.Append("RouteName", ADOX.DataTypeEnum.adVarWChar)
-        ADOXTable.Columns.Append("RouteDistance", ADOX.DataTypeEnum.adVarWChar)
-        ADOXTable.Columns.Append("DemandEco", ADOX.DataTypeEnum.adVarWChar)
-        ADOXTable.Columns.Append("DemandBusiness", ADOX.DataTypeEnum.adVarWChar)
-        ADOXTable.Columns.Append("DemandFirst", ADOX.DataTypeEnum.adVarWChar)
-        ADOXTable.Columns.Append("OfferEco", ADOX.DataTypeEnum.adVarWChar)
-        ADOXTable.Columns.Append("OfferBusiness", ADOX.DataTypeEnum.adVarWChar)
-        ADOXTable.Columns.Append("OfferFirst", ADOX.DataTypeEnum.adVarWChar)
-
+        ADOXTable.Name = TableName
+        For Each ColumnName In Columns
+            ADOXTable.Columns.Append(ColumnName, ADOX.DataTypeEnum.adLongVarWChar)
+        Next
         ADOXCatalog.Tables.Append(ADOXTable)
         ADOXTable.Indexes.Append(ADOXIndex)
 
