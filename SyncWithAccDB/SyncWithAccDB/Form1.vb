@@ -63,6 +63,8 @@ Public Class Form1
     End Sub
 
     Private Sub Edit_BTN_DeleteRoute_Click(sender As Object, e As EventArgs) Handles Edit_BTN_DeleteRoute.Click
+
+        'Check if a route is selected, then delete it
         If (LVRoutes.SelectedItems.Count = 0) Then
             MsgBox("Please select a Route")
         Else
@@ -101,6 +103,8 @@ Public Class Form1
         Dim TotalSeats As Integer
         Dim Divisor As Integer
 
+        'Seat Calculation
+        '1 First = 4 Eco // 1 Bus = 2 Eco
         TotalDemand = Edit_NUD_DemandEco.Value + Edit_NUD_DemandBus.Value + Edit_NUD_DemandFirst.Value
         TotalSeats = Seats_NUD_MaxSeats.Value
         DemandEco = Edit_NUD_DemandEco.Value
@@ -122,6 +126,14 @@ Public Class Form1
     End Sub
 
     Private Sub BTNEditEntry_Click(sender As Object, e As EventArgs) Handles BTNEditEntry.Click
+
+        'Check if a row is selected
+        If (LVRoutes.SelectedItems.Count = 0) Then
+            MsgBox("Please select a route!")
+            Exit Sub
+        End If
+
+        'Edit the selected route by deleting it and making a new one
         DBHandler.DeleteFromDatabase(OldName)
         Dim StringToWrite(7) As String
 
@@ -134,7 +146,9 @@ Public Class Form1
         StringToWrite(6) = Edit_NUD_OfferBus.Value
         StringToWrite(7) = Edit_NUD_OfferFirst.Value
 
+        'Write the new Row
         DBHandler.WriteToDatabase(StringToWrite)
+
     End Sub
 
     Private Sub Form1_SizeChanged(sender As Object, e As EventArgs) Handles Me.SizeChanged
